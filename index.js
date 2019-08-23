@@ -13,6 +13,8 @@ io.on('connection', function(socket){
         console.log('message #'  + ": " + msg);
         socket.emit('event', "Hola NodeMCU, soy el servidor");
       });
+
+     //socket.emit('ledOff', socket.id);
 });
 
 http.listen(process.env.PORT || 3000, function(){

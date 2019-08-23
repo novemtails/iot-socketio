@@ -14,7 +14,12 @@ void event(const char * payload, size_t length) {
   USE_SERIAL.printf("got message: %s\n", payload);
 }
 
+int led = 2;
+bool ledOnStatus;
+
 void setup() {
+
+  pinMode(led, OUTPUT);
     USE_SERIAL.begin(115200);
 
     USE_SERIAL.setDebugOutput(true);
@@ -50,6 +55,23 @@ void response(const char * response, size_t length) {
           USE_SERIAL.println(response);
         }
 
+void ledOn(const char * ledOn, size_t length){
+  USE_SERIAL.println("Led Encendido");
+  ledOnStatus = true;
+  }
+  void ledOff(const char * ledOff, size_t length){
+    USE_SERIAL.println("Led Apagado");
+  ledOnStatus = false;
+  }
 void loop() {
     webSocket.loop();
+    webSocket.on("ledOn", ledOn);
+    webSocket.on("ledOff", ledOff);
+
+    if(ledOnStatus){
+      digitalWrite(led, HIGH);
+      }
+    else{
+      digitalWrite(led, LOW);
+      }
 }

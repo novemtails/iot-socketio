@@ -8,5 +8,19 @@
 </head>
 <body>
     <div>Server Works!</div>
+    <button onclick="On()">On</button>
+    <button onclick="Off()">Off</button>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+     var socket = io('http://localhost:3000');
+			 function On(){
+                socket.emit('ledOn');
+                 console.log('On')
+             }
+             function Off(){
+                socket.emit('ledOff');
+                 console.log('Off')
+			 }
+</script>
 </body>
 </html>
