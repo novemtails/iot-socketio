@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node index.js",
-    "build": "webpack"
+    "build": "yarn run build"
   },
   "dependencies": {
     "express": "^4.17.1",
