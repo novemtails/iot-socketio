@@ -5,7 +5,8 @@
   "author": "rober9tails",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "build": "webpack"
   },
   "dependencies": {
     "express": "^4.17.1",
