@@ -1,10 +1,16 @@
-var app = require('express')();
+var express = require('express');
+var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var path = require('path');
+var public = path.join(__dirname, 'public/src');
 
-app.get('/', function(req, res){
-  res.sendFile(__dirname + '/index.html');
+// viewed at http://localhost:8080
+app.get('/', function(req, res) {
+    res.sendFile(path.join(public, 'index.html'));
 });
+
+app.use('/', express.static(public));
 
 
 io.on('connection', function(socket){  
@@ -27,6 +33,6 @@ io.on('connection', function(socket){
     //socket.emit('ledOn', 'dsdsdsds');
 });
 
-http.listen(process.env.PORT || 3000, function(){
+http.listen(process.env.PORT || 8000, function(){
   console.log('Server On *localhost:3000');
 });
