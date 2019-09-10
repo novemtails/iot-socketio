@@ -33,6 +33,6 @@ io.on('connection', function(socket){
     //socket.emit('ledOn', 'dsdsdsds');
 });
 
-http.listen(process.env.PORT || 8000, function(){
+http.listen(process.env.PORT || 3000, function(){
   console.log('Server On *localhost:3000');
 });

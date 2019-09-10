@@ -47,14 +47,14 @@ void setup() {
           delay(1000);
       }
 
-    WiFiMulti.addAP("SSID", "passpasspass");
+    WiFiMulti.addAP("INFINITUM2468", "WilfridoyNegra270189Bigotes");
 
     while(WiFiMulti.run() != WL_CONNECTED) {
         delay(100);
     }
 
     webSocket.on("event", response);
-    webSocket.begin("192.168.0.11", 3000);
+    webSocket.begin("192.168.0.4", 3000);
     webSocket.emit("Connection", "\"Hola, soy nodeMCU\"");
     
     webSocket.on("connect", response);
