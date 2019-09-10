@@ -11,6 +11,12 @@
 #define OLED_HEIGHT 64
 #define OLED_ADDR   0x3C
 
+#ifdef DEBUG_ESP_PORT
+#define DEBUG_MSG(...) DEBUG_ESP_PORT.printf( __VA_ARGS__ )
+#else
+#define DEBUG_MSG(...)
+#endif
+
 Adafruit_SSD1306 display(OLED_WIDTH, OLED_HEIGHT);
 ESP8266WiFiMulti WiFiMulti;
 SocketIoClient webSocket;
@@ -24,6 +30,7 @@ bool ledOnStatus;
 
 void setup() {
   // Display
+  WiFi.mode(WIFI_STA);
   display.begin(SSD1306_SWITCHCAPVCC, OLED_ADDR);
   display.clearDisplay();
   display.setTextSize(2);
@@ -50,20 +57,20 @@ void setup() {
     WiFiMulti.addAP("INFINITUM2468", "WilfridoyNegra270189Bigotes");
 
     while(WiFiMulti.run() != WL_CONNECTED) {
-        delay(100);
+        delay(5000);
     }
 
     webSocket.on("event", response);
-    webSocket.begin("192.168.0.4", 3000);
+    //webSocket.beginSSL("https://pure-hamlet-50214.herokuapp.com/");
+    webSocket.begin("pure-hamlet-50214.herokuapp.com");
     webSocket.emit("Connection", "\"Hola, soy nodeMCU\"");
     
     webSocket.on("connect", response);
     webSocket.on("ledOn", ledOn);
     
-    
     // use HTTP Basic Authorization this is optional remove if not needed
     //webSocket.setAuthorization("username", "password");
-}
+    }
 
 void response(const char * response, size_t length) {
           USE_SERIAL.println(response);
@@ -88,6 +95,12 @@ void ledOn(const char * ledOn, size_t length){
   }
 
 void loop() {
+if(WiFi.status() == WL_CONNECTED) {
+    webSocket.loop();
+  } else {
+    webSocket.disconnect();
+  }
+    
   display.clearDisplay();
     webSocket.loop();
     webSocket.on("ledOn", ledOn);
