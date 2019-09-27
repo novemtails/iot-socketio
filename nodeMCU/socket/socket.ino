@@ -23,7 +23,7 @@ SocketIoClient webSocket;
 void setup() {
   while(WiFiMulti.run() != WL_CONNECTED) {
         delay(5000);
-        WiFiMulti.addAP("INFINITUM2468", "WilfridoyNegra270189Bigotes");// nombre y contrasena de nuestra red WIFI
+        WiFiMulti.addAP("BSSID", "password");// nombre y contrasena de nuestra red WIFI
     }
   // Display
   WiFi.mode(WIFI_STA);
